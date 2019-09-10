@@ -18,16 +18,17 @@ import json
 import os
 import sys
 
-from methods import master, my_turn, info, warn
+from methods import master, some_example_method, info, warn
 
 """
 You should add all functions that should be triggered at the node 
 instances by either the researcher or master container. Also you 
 should specify a default method in case the (user) defined method
-can not be found
+can not be found. The key of the dictonairy is used by the 
+user/master-container to specify which function needs to be triggered.
 """
 method_map = {
-    "my_turn": my_turn,
+    "some_example_method": some_example_method,
     "master": master
 }
 default_method = "master"
@@ -42,13 +43,16 @@ info("Reading input")
 with open(os.environ["INPUT_FILE"]) as fp:
     input_ = json.loads(fp.read())
 
-# extract method/function from input file and get the args and kwargs 
-# input for this function.
+# extract method/function from input file.
 method_name = input_.get("method", default_method)
 method = method_map.get(method_name)
 if not method:
     warn(f"method name={method_name} not found!\n")
     exit()
+
+# get the args and kwargs input for this function.
+args = input_.get("args", [])
+kwargs = input_.get("kwargs", {})
 
 # all containers receive a token, however this is usually only
 # used by the master method. But can be used by regular containers also
@@ -58,7 +62,7 @@ with open(os.environ["TOKEN_FILE"]) as fp:
     token = fp.read().strip()
     
 # make the actual call to the method/function
-output = method(token)
+output = method(token, args, kwargs)
 
 # write output from the method to mounted output file. Which will be 
 # transfered back to the server by the node-instance.
