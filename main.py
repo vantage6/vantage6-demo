@@ -18,7 +18,18 @@ import json
 import os
 import sys
 
-from methods import master, some_example_method, info, warn
+from methods import (
+    supervisor, 
+    start_ui, 
+    catch_waiting_state,
+    deliver_final_results,
+    secure_sum_master,
+    secure_sum_init,
+    secure_sum_step,
+    secure_sum_end
+    info, 
+    warn
+)
 
 """
 You should add all functions that should be triggered at the node 
@@ -28,10 +39,16 @@ can not be found. The key of the dictonairy is used by the
 user/master-container to specify which function needs to be triggered.
 """
 method_map = {
-    "some_example_method": some_example_method,
-    "master": master
+    "supervisor": supervisor,
+    "start_ui": start_ui,
+    "catch_waiting_state": catch_waiting_state,
+   	"deliver_final_results": deliver_final_results,
+	"secure_sum_master": secure_sum_master,
+	"secure_sum_init": secure_sum_init,
+	"secure_sum_step": secure_sum_step, 
+	"secure_sum_end": secure_sum_end
 }
-default_method = "master"
+default_method = "supervisor"
 
 """ --------------------------------------------------------------------
 (!) Do not edit anything bellow unless you really know what you are 
