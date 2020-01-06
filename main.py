@@ -18,7 +18,14 @@ import json
 import os
 import sys
 
-from methods import master, some_example_method, info, warn
+from methods import (
+    info, 
+    warn, 
+    master,
+    secure_sum_init,
+    secure_sum_step,
+    secure_sum_end
+)
 
 """
 You should add all functions that should be triggered at the node 
@@ -28,7 +35,9 @@ can not be found. The key of the dictonairy is used by the
 user/master-container to specify which function needs to be triggered.
 """
 method_map = {
-    "some_example_method": some_example_method,
+    "secure_sum_init": secure_sum_init,
+    "secure_sum_step": secure_sum_step,
+    "secure_sum_end": secure_sum_end,
     "master": master
 }
 default_method = "master"
@@ -62,7 +71,7 @@ with open(os.environ["TOKEN_FILE"]) as fp:
     token = fp.read().strip()
     
 # make the actual call to the method/function
-output = method(token, args, kwargs)
+output = method(token, *args, **kwargs)
 
 # write output from the method to mounted output file. Which will be 
 # transfered back to the server by the node-instance.
