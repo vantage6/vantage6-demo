@@ -8,10 +8,10 @@ When a return statement is reached the result is send to the central
 server after encryption.
 """
 import os
-import pandas
 import sys
 import time
 import json
+import csv
 
 from pathlib import Path
 from random import randint
@@ -46,7 +46,7 @@ def master(token, *args, **kwargs):
     organizations = client.get_organizations_in_my_collaboration()
     ids = [organization.get("id") for organization in organizations]
 
-    if ids < 3:
+    if len(ids) < 3:
         info("Not enough parties in this collaboration")
         exit()
 
@@ -54,25 +54,29 @@ def master(token, *args, **kwargs):
     # the first node. 
     task = client.create_new_task(
         input_= {"method": "secure_sum_init"}, 
-        organization_ids=ids[0]
+        organization_ids=[ids[0]]
     )
     result = wait_for_result(client, task)
     
     # in each step each nodes ads its value to this number
     for id_ in ids[1:]:
         task = client.create_new_task(
-            input_ = {"method": secure_sum_step, "kwargs": result},
+            input_ = {"method": "secure_sum_step", "kwargs": result},
             organization_ids=[id_]
         )
-        result = wait_for_result(task)
+        result = wait_for_result(client, task)
 
     # in the final step the initial node will subtract the random number
     # it added
     task = client.create_new_task(
-        input_= {"method": "secure_sum_end"}, 
-        organization_ids=ids[0]
+        input_= {"method": "secure_sum_end", "kwargs": result}, 
+        organization_ids=[ids[0]]
     )
     result = wait_for_result(client, task)
+    
+    # compute average age and weight
+    result["age"] = result["age"] / len(ids)
+    result["weight"] = result["weight"] / len(ids)
     
     return result
 
@@ -89,8 +93,8 @@ def wait_for_result(client, task):
 
     info("Obtaining results")
     results = client.get_results(task_id=task.get("id"))
-    results = [json.loads(result.get("result")) for result in results]
-    return results
+    results = [result.get("result") for result in results]
+    return results.pop()
 
 def secure_sum_init(token, *args, **kwargs):
     
@@ -101,13 +105,13 @@ def secure_sum_init(token, *args, **kwargs):
 
     # read local values
     info("Reading database file")
-    dataframe = pandas.read_csv(
-        os.environ['DATABASE_URI'], 
-        sep=";",
-        decimal=","
-    )
-    age = int(dataframe["age"].iloc[0]) + r_age
-    weight = int(dataframe["weight"].iloc[0]) + r_weight
+    with open(os.environ["DATABASE_URI"], "r") as f:
+        read_csv = csv.reader(f, delimiter=";")
+        next(read_csv)
+        values = next(read_csv)
+
+    age = int(values[0]) + r_age
+    weight = int(values[1]) + r_weight
 
     # write random values to temporary volume
     info("Writing random value to temp folder")
@@ -122,16 +126,14 @@ def secure_sum_step(token, age, weight):
     
     # read local values
     info("Reading database file")
-    dataframe = pandas.read_csv(
-        os.environ['DATABASE_URI'], 
-        sep=";",
-        decimal=","
-    )
+    with open(os.environ['DATABASE_URI']) as f:
+        read_csv = csv.reader(f, delimiter=";")
+        next(read_csv)
+        values = next(read_csv)
 
     info("Add local values to the incomming values")
-    info(str(age))
-    age = int(dataframe["age"].iloc[0]) + age
-    weight = int(dataframe["weight"].iloc[0]) + weight
+    age = int(values[0]) + age
+    weight = int(values[1]) + weight
 
     return {"age": age, "weight": weight}
 
