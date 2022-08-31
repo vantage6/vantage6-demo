@@ -21,17 +21,45 @@ a single button to start the analysis. When the button is pressed the Multi
 party computation (MPC) algorithm will compute the average of the three nodes.
 Finally the results are displayed at the researcher station.
 
-## Raspberry PI Installation
 
-### OS installation
-Start with a fresh [Ubuntu 64bit ARM image](https://ubuntu.com/download/raspberry-pi).
-And follow their instruction on how to install it onto the memory card. I would
-recommend using the [Raspberry Pi Imager](https://www.raspberrypi.com/software/) to do so.
+## Setup
 
-Plug the memory card into the PI, boot it up and follow the installation instructions.
-When you are logged into the system, open the **Terminal** and proceed to the next step.
+### Configure collaboration
+Log into the vantage6-server you are using
+(e.g. https://portal.petronas.vantage6.ai). This can be either through our
+[python client](https://docs.vantage6.ai/usage/running-analyses/python-client)
+or with the UI (as of this writing in Beta). Note that the R-client does not
+have sufficient tools to do this.
 
-### Run installation script
+Then add the following:
+* Three organizations
+* At least one user for one of the organizations
+* Collaboration including all three organizations
+* In case you are using the Python client: nodes for each organization in the
+  collaboration. This is not required for the UI as this happens automatically
+  when you create a collaboration
+
+Make sure you copy the API keys to a safe location. You need them later on to
+configure the data-stations.
+
+
+### Raspberry PI OS installation
+For both the nodes and researcher Ubuntu ARM needs to be installed. Start with
+a fresh [Ubuntu 64bit ARM image](https://ubuntu.com/download/raspberry-pi). And
+follow their instruction on how to install it onto the memory card. I would
+recommend using the
+[Raspberry Pi Imager](https://www.raspberrypi.com/software/) to do so.
+
+Plug the memory card into the PI, boot it up and follow the installation
+instructions. Make sure to configure an internet connection. When you are
+logged into the system, open the **Terminal** and proceed to the next step.
+
+### Raspberry PI Node Installation
+This section covers the installation of the nodes, for which you need three
+Raspberry PIs. See the other section on installation instructions for the
+researchers PI.
+
+#### Run installation script
 Git is already installed in ubuntu, so execute the following:
 ```bash
 cd ~
@@ -49,27 +77,27 @@ This script will:
 5. Move the predefined configuration files to their appropiate location
 
 
-### Configure collaboration
-Log into the vantage6-server you are using (e.g. https://portal.petronas.vantage6.ai).
-This can be either through our
-[python client](https://docs.vantage6.ai/usage/running-analyses/python-client)
-or with the UI (as of this writing in Beta). Note that the R-client does not
-have sufficient tools to do this.
-
-Then add the following:
-* Three organizations
-* At least one user for one of the organizations
-* Collaboration including all three organizations
-* In case you are using the Python client: nodes for each organization in the
-  collaboration. This is not required for the UI as this happens automatically
-  when you create a collaboration
-
-Make sure you copy the API keys to a safe location. You need them later on to
-configure the data-stations.
-
-### Configure the nodes
+#### Configure the nodes
 Now that we have the API-keys, we can start configuring the nodes. The only
 thing we need to do now is add the API keys to the configuration files:
+```bash
+sh ~/vantage6-demo/scripts/configure.sh
+```
+Fill in the requested details (Node-name and API key). Now the node has been
+setup and is ready to process requests.
 
+### Raspberry PI Researcher Installation
 
+#### Download the Researcher app
+Git is already installed in ubuntu, so execute the following:
+```bash
+cd ~
+git clone https://github.com/vantage6/vantage6-demo
+```
+
+You need to make some manual changes to the Javascript file:
+`~/vantage6-demo/UI/static/vantage.js`
+
+* username/password
+* URL to your server at serveral places
 
