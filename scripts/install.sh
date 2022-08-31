@@ -28,6 +28,9 @@ echo "6. Create config folder"
 mkdir ${HOME}/.config/vantage6/node
 chown ${USER}:${USER} ${HOME}/.config/vantage6/node
 
+echo "7. Copy dummy data"
+cp ${HOME}/vantage6-demo/data/data.csv ${HOME}/data.csv
+
 echo "8. Disable lock-screen, sleep and idle"
 gsettings set org.gnome.desktop.screensaver lock-enabled false
 gsettings set org.gnome.desktop.session idle-delay 0
