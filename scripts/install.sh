@@ -24,10 +24,9 @@ python3 -m venv ${HOME}/venvs/vantage6
 echo "5. Install vantage6"
 ${HOME}/venvs/vantage6/bin/pip install vantage6==3.3.2
 
-echo "6. Copy configuration files"
+echo "6. Create config folder"
 mkdir ${HOME}/.config/vantage6/node
-cp -R ${HOME}/vantage6-demo/configurations/. ${HOME}/.config/vantage6/node
-chown -R ${USER}:${USER} ${HOME}/.config/vantage6/node/
+chown ${USER}:${USER} ${HOME}/.config/vantage6/node
 
 echo "Done!"
 

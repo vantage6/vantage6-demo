@@ -1,7 +1,7 @@
 application:
 
   # API key used to authenticate at the server.
-  api_key: ---
+  api_key: ${API_KEY}
 
   # URL of the vantage6 server
   server_url: https://petronas.vantage6.ai
@@ -23,7 +23,7 @@ application:
 
     # in this example the environment variable 'player' has
     # the value 'Alice' inside the algorithm container
-    player: demoC
+    player: ${NODE}
 
   # specify custom Docker images to use for starting the different
   # components.
@@ -63,7 +63,7 @@ application:
       level:        DEBUG
 
       # Filename of the log-file, used by RotatingFileHandler
-      file:         demoC.log
+      file:         ${NODE}.log
 
       # whenever the output needs to be shown in the console
       use_console:  True
@@ -79,4 +79,4 @@ application:
       datefmt:      "%Y-%m-%d %H:%M:%S"
 
   # directory where local task files (input/output) are stored
-  task_dir: /home/demo/.local/share/vantage6/node/demoC
+  task_dir: ${HOME}/.local/share/vantage6/node/${NODE}
