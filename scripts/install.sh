@@ -28,6 +28,11 @@ echo "6. Create config folder"
 mkdir ${HOME}/.config/vantage6/node
 chown ${USER}:${USER} ${HOME}/.config/vantage6/node
 
+echo "8. Disable lock-screen, sleep and idle"
+gsettings set org.gnome.desktop.screensaver lock-enabled false
+gsettings set org.gnome.desktop.session idle-delay 0
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+
 echo "Done!"
 
 
