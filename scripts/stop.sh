@@ -1,0 +1,1 @@
+${HOME}/venvs/vantage6/bin/vnode stop --name demo
