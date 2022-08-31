@@ -37,7 +37,7 @@ application:
   # certain database to be used if it is specified here. They are
   # specified as label:local_path pairs.
   databases:
-    default: ~\data.csv
+    default: ${HOME}\data.csv
 
   # end-to-end encryption settings
   encryption:

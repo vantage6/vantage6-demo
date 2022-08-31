@@ -7,5 +7,5 @@ read API_KEY
 echo "> Parsing & saving configuration file"
 export NODE=$NODE
 export API_KEY=$API_KEY
-envsubst < ${HOME}/vantage6-demo/scripts/config.tpl \
+envsubst < ${HOME}/vantage6-demo/data/config.tpl \
 > ${HOME}/.config/vantage6/node/demo.yaml
