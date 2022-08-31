@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+      <meta charset="utf-8">
+      <title>IKNL Vantage 6</title>
+      <link href="../static/styles.css" rel="stylesheet">
+  </head>
+
+  <body>
+      <header class="">
+          <img height=150 src="../static/logo3.png" />
+      </header>
+      <div id="loading"></div>
+      <div id="wrapper">
+          <div class="main-section" id="data-entry">
+              <div id="controls">
+                  <div>
+                      <label class="noselect" for="age">Your age: <span id="age-out">-</span> years</label>
+                      <div class="slidecontainer">
+                          <input type="range" min="1" max="100" value="60" class="slider" id="age">
+                      </div>
+                      <div class="spacer"></div>
+                      <label class="noselect" for="age">Your weight: <span id="weight-out">-</span> kg</label>
+                      <div class="slidecontainer">
+                          <input type="range" min="1" max="200" value="60" class="slider" id="weight">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <footer class="">Visit us at vantage6.ai</footer>
+      <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+      <script src="../static/vantage.js"></script>
+  </body>
+</html>
