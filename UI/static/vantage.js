@@ -1,14 +1,14 @@
 function StartDemo() {
- 
+
     $("#welcome").animate({ "top": "-100%", "bottom": "100%" }, 500);
     var request = new XMLHttpRequest()
     request.open(
-        'POST', 
-        'https://trolltunga.distributedlearning.ai/token/user'
+        'POST',
+        'https://petronas.vantage6.ai/token/user'
     )
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(JSON.stringify({ "username": "a@demo.org", "password": "demo-456!"}));
-    
+    request.send(JSON.stringify({ "username": "***", "password": "***"}));
+
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
             var token = JSON.parse(request.response).access_token
@@ -21,21 +21,21 @@ function MakeComputationRequest(token) {
     var request = new XMLHttpRequest()
     request.open(
         "POST",
-        "https://trolltunga.distributedlearning.ai/task"
+        "https://petronas.vantage6.ai/task"
     )
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.setRequestHeader('Authorization', 'Bearer ' + token);
     request.send(
         JSON.stringify(
             {
-                "image": "harbor.distributedlearning.ai/iknl-public/secure-sum-arm",
-                "collaboration_id": 1,
+                "image": "harbor2.vantage6.ai/demo/secure-sum-arm",
+                "collaboration_id": 8,
                 "organizations":
                 [
                     {
-                        "id":1,
+                        "id":12,
                         "input": {
-                            "method":"master", 
+                            "method":"master",
                             "args": [],
                             "kwargs":{}
                         }
@@ -59,11 +59,11 @@ function PollResults(result_id, token) {
     var request = new XMLHttpRequest()
     request.open(
         "GET",
-        "https://trolltunga.distributedlearning.ai/result/" + result_id.toString()
+        "https://petronas.vantage6.ai/result/" + result_id.toString()
     )
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.setRequestHeader('Authorization', 'Bearer ' + token);
-    
+
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
             // computation request has been send
@@ -73,29 +73,29 @@ function PollResults(result_id, token) {
                 LoadedData(results)
             }
             else {
-                setTimeout(function () { 
+                setTimeout(function () {
                     PollResults(result_id, token)
-                }, 2000)                
+                }, 2000)
             }
         }
     }
     request.send()
-    
+
 }
 
 function EnteredData() {
     $("#data-entry").animate({ "top": "-100%", "bottom": "100%" }, 500);
-    
+
 }
 
 function LoadedData(results) {
     $("#loader").animate({ "top": "-100%", "bottom": "100%" }, 500);
 
-    
+
 
     var age_result = document.getElementById("result-age");
     var weight_result = document.getElementById("result-weight");
-    
+
     age_result.innerHTML = Math.round(results.age * 10) / 10
     weight_result.innerHTML = Math.round(results.weight * 10) / 10
 }
