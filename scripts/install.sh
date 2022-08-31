@@ -15,7 +15,7 @@ echo "3. Installing Docker"
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
-sudo usermod -aG docker ${HOME}
+sudo usermod -aG docker ${USER}
 
 echo "4. Creating Python environment"
 python3 -m venv ${HOME}/venvs/vantage6
