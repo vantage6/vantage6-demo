@@ -22,7 +22,7 @@ header {
     /* background: linear-gradient(-45deg, #11B5E9, #006D8C, #C3Ecf9, #11B5E9); */
     background-size: 400% 400%;
     /* animation: gradientBG 60s linear infinite */
-    
+
 }
 #six{
     font-weight: bold;
@@ -48,7 +48,7 @@ header {
 }
 .main-section{
     position: fixed;
-    top: 150px;
+    top: 105px;
     left:0;
     right:0;
     bottom: 30px;
@@ -184,7 +184,7 @@ footer {
     color:#0f497b;
     /* animation: gradientBG 60s linear infinite; */
 }
-/* 
+/*
 .loader {
     position: absolute;
     top: 50%;
@@ -262,7 +262,7 @@ label span{
     }
 
     .slider:active{
-        
+
     }
 
     /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
