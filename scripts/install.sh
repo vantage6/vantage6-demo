@@ -6,6 +6,7 @@ apt-get upgrade -y
 
 echo "1a. Installing additional packages"
 apt-get install curl
+apt-get install chromium-browser
 
 echo "2. Setting execution permissions to script"
 chmod +x ${HOME}/vantage6-demo/scripts/configure.sh
