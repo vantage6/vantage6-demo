@@ -38,7 +38,7 @@ gsettings set org.gnome.desktop.session idle-delay 0
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 
 echo "9. Adding cronjob"
-echo "@reboot ${HOME}/vantage6-demo/scripts/start.sh" >> /etc/crontab
+echo "@reboot demo export DISPLAY=:0 && ${HOME}/vantage6-demo/scripts/start.sh" >> /etc/crontab
 
 echo "Done!"
 
