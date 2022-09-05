@@ -6,6 +6,7 @@ apt-get upgrade -y
 
 echo "1a. Installing additional packages"
 apt-get install curl
+apt-get install python3.10-venv
 apt-get install chromium-browser
 
 echo "2. Setting execution permissions to script"
@@ -17,9 +18,10 @@ echo "3. Installing Docker"
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 
-sudo usermod -aG docker ${USER}
+usermod -aG docker ${USER}
 
 echo "4. Creating Python environment"
+
 python3 -m venv ${HOME}/venvs/vantage6
 
 echo "5. Install vantage6"

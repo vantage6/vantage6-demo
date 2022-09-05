@@ -51,8 +51,8 @@ recommend using the
 [Raspberry Pi Imager](https://www.raspberrypi.com/software/) to do so.
 
 Plug the memory card into the PI, boot it up and follow the installation
-instructions. Make sure to configure an internet connection. When you are
-logged into the system, open the **Terminal** and proceed to the next step.
+instructions. Make sure to configure an internet connection and preferable
+enable auto login. When you are logged into the system, open the **Terminal**.
 
 ### Raspberry PI Node Installation
 This section covers the installation of the nodes, for which you need three
@@ -65,7 +65,7 @@ Git is already installed in ubuntu, so execute the following:
 cd ~
 git clone https://github.com/vantage6/vantage6-demo
 sudo chmod +x ~/vantage6-demo/scripts/install.sh
-sudo sh ~/vantage6-demo/scripts/install.sh
+sudo -E sh ~/vantage6-demo/scripts/install.sh
 ```
 
 This script will:
@@ -100,4 +100,9 @@ You need to make some manual changes to the Javascript file:
 
 * username/password
 * URL to your server at serveral places
+
+## Buidling Docker images
+```
+docker buildx build --platform linux/arm/v7 -t harbor2.vantage6.ai/demo/ui . --push
+```
 
