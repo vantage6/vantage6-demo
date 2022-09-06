@@ -28,7 +28,7 @@ echo "5. Install vantage6"
 ${HOME}/venvs/vantage6/bin/pip install vantage6==3.3.2
 
 echo "6. Create config folder"
-mkdir ${HOME}/.config/vantage6/node
+mkdir -p ${HOME}/.config/vantage6/node
 chown ${USER}:${USER} ${HOME}/.config/vantage6/node
 
 echo "7. Copy dummy data"
