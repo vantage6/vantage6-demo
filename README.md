@@ -60,8 +60,8 @@ Raspberry PIs. See the other section on installation instructions for the
 researchers PI.
 
 #### Run installation script
-Git is already installed in ubuntu, so execute the following:
 ```bash
+sudo apt install git
 cd ~
 git clone https://github.com/vantage6/vantage6-demo
 sudo chmod +x ~/vantage6-demo/scripts/install.sh
