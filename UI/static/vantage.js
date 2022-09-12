@@ -104,35 +104,50 @@ function BackToStart() {
     $(".main-section").animate({ "top": "150px", "bottom": "30px" }, 500);
 }
 
-var ageslider = document.getElementById("age");
-var ageoutput = document.getElementById("age-out");
-ageoutput.innerHTML = ageslider.value; // Display the default slider value
+var data1slider = document.getElementById("data1");
+var data1output = document.getElementById("data1-out");
+data1output.innerHTML = data1slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-ageslider.oninput = function () {
-    ageoutput.innerHTML = this.value;
+data1slider.oninput = function () {
+    data1output.innerHTML = this.value;
 }
-ageslider.onchange = function () {
-    ageoutput.innerHTML = this.value;
+data1slider.onchange = function () {
+    data1output.innerHTML = this.value;
     WriteData();
 }
 
-var weightslider = document.getElementById("weight");
-var weightoutput = document.getElementById("weight-out");
-weightoutput.innerHTML = weightslider.value; // Display the default slider value
+var data2slider = document.getElementById("data2");
+var data2output = document.getElementById("data2-out");
+data2output.innerHTML = data2slider.value; // Display the default slider value
 
 // Update the current slider value (each time you drag the slider handle)
-weightslider.oninput = function () {
-    weightoutput.innerHTML = this.value;
+data2slider.oninput = function () {
+    data2output.innerHTML = this.value;
 }
-weightslider.onchange = function () {
-    weightoutput.innerHTML = this.value;
+data2slider.onchange = function () {
+    data2output.innerHTML = this.value;
     WriteData();
 }
+
+var data3slider = document.getElementById("data3");
+var data3output = document.getElementById("data3-out");
+data3output.innerHTML = data3slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+data3slider.oninput = function () {
+    data3output.innerHTML = this.value;
+}
+data3slider.onchange = function () {
+    data3output.innerHTML = this.value;
+    WriteData();
+}
+
+var datalabel = document.getElementById("datalabel");
 
 function WriteData(){
     var request = new XMLHttpRequest()
-    request.open('GET', 'http://localhost/update?age='+ageoutput.innerHTML+'&&weight='+weightoutput.innerHTML)
+    request.open('GET', 'http://localhost/update?data1='+data1output.innerHTML+'&&data2='+data2output.innerHTML+'&&data3='+data3output.innerHTML+'&&label='+datalabel.innerHTML)
     request.send()
 }
 

@@ -16,12 +16,17 @@ def researcher():
 
 @app.route('/update')
 def update():
-    age = request.args.get('age', 20)
-    weight = request.args.get('weight', 60)
+    data1 = request.args.get('data1', 20)
+    data2 = request.args.get('data2', 20)
+    data3 = request.args.get('data3', 20)
+    label = request.args['label']
 
     with open(os.environ["DATABASE_URI"], "w") as f:
-        f.write("age;weight\n")
-        f.write(""+age+";"+weight)
+        f.write("numeric,numeric\n")
+        f.write(f"ID,{label}\n")
+        f.write(f"1,{data1}")
+        f.write(f"2,{data1}")
+        f.write(f"3,{data1}")
 
     return "OK"
 

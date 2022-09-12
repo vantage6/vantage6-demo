@@ -48,14 +48,11 @@ header {
 }
 .main-section{
     position: fixed;
-    top: 105px;
+    top: 150px;
     left:0;
     right:0;
     bottom: 30px;
-}
-.main-section {
     z-index: 1;
-    text-align: center;
     font-size: 24pt;
     background-color: #0f497b;
     color: #f9f9f9;
@@ -102,17 +99,38 @@ header {
     z-index: 0;
 }
 #controls{
-    padding: 9%;
-    height: 10%;
+    padding: 30px 70px;
     font-size: 24pt;
     color: #aabfce;
+}
+#controls h1{
+    color: white;
+    margin-bottom: 40px;
 }
 #waiting-text{
     color:#a9bfce;
 }
-label {
-    text-align: left;
+.container{
+    float: none;
 }
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+.data,
+label {
+    margin-top: 22px;
+    text-align: left;
+    float:left;
+    width:15%;
+}
+.data{
+    padding-left: 2%;
+    width: 13%;
+    text-align: right;
+}
+
 button {
     border: none;
     border-radius: 100px;
@@ -132,14 +150,10 @@ button:active {
     color: #333;
 }
 .spacer{
-    height: 0pt;
+    height: 1px;
     width: 80%;
     background-color: #0f497b;
-    margin: 10%;
-    margin-top: 1%;
-    margin-bottom: 4%;
     display: inline-block;
-    opacity: 0.5;
 }
 .result{
     display: inline-block;
@@ -239,15 +253,16 @@ label span{
     color:white;
 } */
 .slidecontainer {
-    width: 100%; /* Width of the outside container */
+    width: 70%; /* Width of the outside container */
     margin-top:15px;
+    float:left;
 }
 
 /* The slider itself */
 .slider {
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
-    width: 80%; /* Full-width */
+    width: 100%; /* Full-width */
     height: 50px; /* Specified height */
     background: #a9bfce; /* Grey background */
     outline: none; /* Remove outline */
@@ -311,3 +326,10 @@ label span{
           transform: rotate(360deg);
         }
       }
+strong{
+    font-weight: bolder;
+}
+h1{
+    font-size: 30px;
+    margin-top: 20px;
+}
