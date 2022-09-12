@@ -9,6 +9,18 @@ app = Flask(__name__)
 def index():
     return render_template("node.html")
 
+@app.route("/a")
+def index():
+    return render_template("nodeA.html")
+
+@app.route("/b")
+def index():
+    return render_template("nodeB.html")
+
+@app.route("/c")
+def index():
+    return render_template("nodeC.html")
+
 @app.route("/researcher")
 def researcher():
     return render_template("master.html")
@@ -25,8 +37,8 @@ def update():
         f.write("numeric,numeric\n")
         f.write(f"ID,{label}\n")
         f.write(f"1,{data1}")
-        f.write(f"2,{data1}")
-        f.write(f"3,{data1}")
+        f.write(f"2,{data2}")
+        f.write(f"3,{data3}")
 
     return "OK"
 
