@@ -1,9 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
-  
+
   <head>
       <meta charset="utf-8">
       <title>Vantage 6</title>
+      <!-- TODO we needto have these locally -->
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.1/nouislider.min.js  "></script>
       <link href="../static/styles.css" rel="stylesheet">
   </head>
 
@@ -14,19 +17,31 @@
           <div class="main-section" id="welcome">
               <br />
               <span id="introtext">
-                  In this demo we will calculate aggregated statistics about a group of participants using Federated Learning. 
-                  This means a central node will produce results without disclosing any identifiable information to other involved parties.
+                  In this demo we will check how many participants fulfill the criteria, without disclosing identifiable information to the involved parties.
                   <br />
-                  If everyone is ready to proceed, press the button below!
-              </span>
+                  Set the ranges below and, if everyone is ready to proceed, press 'Go'!
+                </span>
+                <br/>
+                <div class="noui-slider-container">
+                    <div class="noui-slider-label">Length</div>
+                    <div class="noui-slider" id="slider-length"></div>
+                </div>
+                <div class="noui-slider-container">
+                    <div class="noui-slider-label">Weight</div>
+                    <div class="noui-slider" id="slider-weight"></div>
+                </div>
+                <div class="noui-slider-container">
+                    <div class="noui-slider-label">Age</div>
+                    <div class="noui-slider" id="slider-age"></div>
+                </div>
               <br />
               <button class="button-main" id="go-button" onclick="StartDemo();">Go!</button>
           </div>
           <div class="main-section" id="loader">
-                <br />  <br />  
-            <div class="lds-dual-ring"></div><br /> <br />   
+                <br />  <br />
+            <div class="lds-dual-ring"></div><br /> <br />
             <span id="waiting-text">Waiting for results</span>
-              
+
               <div class="loading-bar">
                   <span class="loading-bar-span"></span>
               </div>
@@ -35,6 +50,9 @@
               <!-- <button onclick="LoadedData();">Loaded (hacky way until there's actual data)</button> -->
           </div>
           <div class="main-section" id="results">
+              <!-- TODO add what the input values were -->
+              <!-- TODO add length -->
+              <!-- TODO modify to just getting single number with count of persons -->
               <div id="container">
                   <div class="result">
                       <span class="result-header">The average age is</span>
