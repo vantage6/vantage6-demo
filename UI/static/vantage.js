@@ -1,5 +1,4 @@
 function StartDemo() {
-
     $("#welcome").animate({ "top": "-100%", "bottom": "100%" }, 500);
     var request = new XMLHttpRequest()
     request.open(
@@ -25,6 +24,14 @@ function MakeComputationRequest(token) {
     )
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.setRequestHeader('Authorization', 'Bearer ' + token);
+
+    length_range = length_slider.noUiSlider.get()
+    weight_range = weight_slider.noUiSlider.get()
+    age_range = age_slider.noUiSlider.get()
+    console.log(length_range)
+    console.log(weight_range)
+    console.log(age_range)
+
     request.send(
         JSON.stringify(
             {
@@ -173,7 +180,6 @@ function setSlider(slider_name, min, max, start_range){
     }
 
     noUiSlider.create(slider, {
-        start: start_range,
         connect: true,
         range: {
             'min': min,
@@ -187,9 +193,11 @@ function setSlider(slider_name, min, max, start_range){
             mode: 'steps',
             stepped: true,
             density: 4
-        }
+        },
+        start: start_range,
     });
+    return slider;
 }
-setSlider('slider-length', 0, 300, [20, 120])
-setSlider('slider-weight', 0, 300, [60, 100])
-setSlider('slider-age', 0, 120, [20, 80])
+var age_slider = setSlider('slider-age', 0, 120, [20, 80])
+var weight_slider = setSlider('slider-weight', 0, 300, [60, 100])
+var length_slider = setSlider('slider-length', 0, 300, [100, 200])
