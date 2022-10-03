@@ -1,3 +1,8 @@
+// import username and password from config
+var imported = document.createElement('script');
+imported.src = '../static/config.js';
+document.head.appendChild(imported);
+
 function StartDemo() {
     $("#welcome").animate({ "top": "-100%", "bottom": "100%" }, 500);
     var request = new XMLHttpRequest()
@@ -6,7 +11,7 @@ function StartDemo() {
         'https://petronas.vantage6.ai/token/user'
     )
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    request.send(JSON.stringify({ "username": "***", "password": "***"}));
+    request.send(JSON.stringify({ "username": USERNAME, "password": PASSWORD}));
 
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
@@ -32,28 +37,75 @@ function MakeComputationRequest(token) {
     console.log(weight_range)
     console.log(age_range)
 
+    var requirements = [
+        {
+            "range": true,
+            "name": "length",
+            "lowerLimit": {
+                "type": "numeric",
+                "value": length_range[0],
+                "attributeName": "length",
+            },
+            "upperLimit": {
+                "type": "numeric",
+                "value": length_range[1],
+                "attributeName": "length",
+            }
+        },
+        {
+            "range": true,
+            "name": "weight",
+            "lowerLimit": {
+                "type": "numeric",
+                "value": weight_range[0],
+                "attributeName": "weight",
+            },
+            "upperLimit": {
+                "type": "numeric",
+                "value": weight_range[1],
+                "attributeName": "weight",
+            }
+        },
+         {
+            "range": true,
+            "name": "age",
+            "lowerLimit": {
+                "type": "numeric",
+                "value": age_range[0],
+                "attributeName": "age",
+            },
+            "upperLimit": {
+                "type": "numeric",
+                "value": age_range[1],
+                "attributeName": "age",
+            }
+        }
+    ]
+    console.log(requirements)
+
     request.send(
         JSON.stringify(
             {
-                "image": "harbor2.vantage6.ai/demo/secure-sum-arm",
+                "image": "harbor2.vantage6.ai/algorithms/health-ri-2022",
                 "collaboration_id": 8,
-                "organizations":
-                [
-                    {
-                        "id":12,
-                        "input": {
-                            "method":"master",
-                            "args": [],
-                            "kwargs":{}
-                        }
-                    }
-                ]
+                "organizations": [{"id": 22}],
+                "name": 'health-ri-demo',
+                "description": 'health-ri-demo',
+                "input": {
+                    'method': 'health_ri_demo',
+                    'master': true,
+                    'args': [
+                        [12, 13, 14], //the node IDs
+                        requirements  // range data
+                    ]
+                }
             }
         )
     );
 
     request.onreadystatechange = function() {
         if (request.readyState === 4) {
+            console.log(request.response)
             // computation request has been send
             var id_ = JSON.parse(request.response).results[0].id
             // alert("start polling2")
@@ -72,11 +124,13 @@ function PollResults(result_id, token) {
     request.setRequestHeader('Authorization', 'Bearer ' + token);
 
     request.onreadystatechange = function() {
+        console.log(request.response)
         if (request.readyState === 4) {
             // computation request has been send
             var finished = JSON.parse(request.response).finished_at
             if (finished != null) {
                 var results = JSON.parse((JSON.parse(request.response).result))
+                console.log(results)
                 LoadedData(results)
             }
             else {
