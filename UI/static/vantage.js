@@ -252,6 +252,6 @@ function setSlider(slider_name, min, max, start_range){
     });
     return slider;
 }
-var age_slider = setSlider('slider-age', 0, 120, [20, 80])
-var weight_slider = setSlider('slider-weight', 0, 300, [60, 100])
+var weight_slider = setSlider('slider-weight', 0, 300, [60, 150])
 var length_slider = setSlider('slider-length', 0, 300, [100, 200])
+var age_slider = setSlider('slider-age', 0, 120, [20, 80])
