@@ -75,9 +75,9 @@ header {
 #introtext{
     color:#a9bfce;
     font-size: 24px;
-    width: 800px;
+    width: 87%;
+    margin-left: 6.5%;
     display:block;
-    margin-left:90px;
     line-height: 34px;
 }
 #go-button{
@@ -94,6 +94,7 @@ header {
 }
 #loader{
     z-index:1;
+    text-align: center;
 }
 #results{
     z-index: 0;
@@ -332,4 +333,40 @@ strong{
 h1{
     font-size: 30px;
     margin-top: 20px;
+}
+
+
+/* NoUI connect range inputs */
+
+.noUi-connect {
+    background: #f9ac23;
+}
+.noUi-tooltip {
+    font-size: 13pt;
+    /* background: #f9ac23; */
+    font: white;
+    /* border-color: #f9ac23; */
+}
+.noUi-touch-area {
+    /* background: #f9ac23; */
+}
+
+.noui-slider-label {
+    display: inline-block;
+    width: 19%
+}
+.noui-slider {
+    width: 80%;
+    display: inline-block;
+}
+.noui-slider-container {
+    width: 80%;
+    margin-left: 9%;
+    margin-bottom: 60px;
+}
+.toStartButton {
+    margin-top: 40px;
+}
+th, td {
+    width: 200px;
 }
