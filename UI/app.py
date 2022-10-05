@@ -10,15 +10,15 @@ def index():
     return render_template("node.html")
 
 @app.route("/demoA")
-def index():
+def demoA():
     return render_template("nodeA.html")
 
 @app.route("/demoB")
-def index():
+def demoB():
     return render_template("nodeB.html")
 
 @app.route("/demoC")
-def index():
+def demoC():
     return render_template("nodeC.html")
 
 @app.route("/researcher")
@@ -36,8 +36,8 @@ def update():
     with open(os.environ["DATABASE_URI"], "w") as f:
         f.write("numeric,numeric\n")
         f.write(f"ID,{label}\n")
-        f.write(f"1,{data1}")
-        f.write(f"2,{data2}")
+        f.write(f"1,{data1}\n")
+        f.write(f"2,{data2}\n")
         f.write(f"3,{data3}")
 
     return "OK"
