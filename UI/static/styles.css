@@ -94,6 +94,7 @@ header {
 }
 #loader{
     z-index:1;
+    text-align: center;
 }
 #results{
     z-index: 0;
@@ -362,4 +363,10 @@ h1{
     width: 80%;
     margin-left: 9%;
     margin-bottom: 60px;
+}
+.toStartButton {
+    margin-top: 40px;
+}
+th, td {
+    width: 200px;
 }
