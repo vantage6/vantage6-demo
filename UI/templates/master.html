@@ -50,20 +50,29 @@
               <!-- <button onclick="LoadedData();">Loaded (hacky way until there's actual data)</button> -->
           </div>
           <div class="main-section" id="results">
-              <!-- TODO add what the input values were -->
-              <!-- TODO add length -->
-              <!-- TODO modify to just getting single number with count of persons -->
               <div id="container">
                   <div class="result">
-                      <span class="result-header">The average age is</span>
+                      <span class="result-header">Number of people meeting criteria:</span>
                       <br />
-                      <span id="result-age" class="result-counter">-<span style="font-size:36pt;">years</span></span>
+                      <span id="result-count" class="result-counter">-<span style="font-size:36pt;"></span></span>
                   </div>
-                  <div class="result">
-                      <span class="result-header">The average weight is</span>
-                      <br />
-                      <span id="result-weight" class="result-counter">-<span style="font-size:36pt;">kg</span></span>
-                  </div>
+                  <p>
+                      Your filter criteria were:
+                  </p>
+                  <table>
+                    <tr>
+                      <td>Length</td>
+                      <td id="td-length-cell"></td>
+                    </tr>
+                    <tr>
+                      <td>Weight</td>
+                      <td id="td-weight-cell"></td>
+                    </tr>
+                    <tr>
+                      <td>Age</td>
+                      <td id="td-age-cell"></td>
+                    </tr>
+                  </table>
               </div>
               <button onclick="BackToStart();">Back to start</button>
           </div>

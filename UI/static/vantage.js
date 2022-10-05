@@ -3,6 +3,8 @@ var imported = document.createElement('script');
 imported.src = '../static/config.js';
 document.head.appendChild(imported);
 
+var length_range, weight_range, age_range;
+
 function StartDemo() {
     $("#welcome").animate({ "top": "-100%", "bottom": "100%" }, 500);
     var request = new XMLHttpRequest()
@@ -21,6 +23,10 @@ function StartDemo() {
     }
 }
 
+function getNoUiSliderRange(slider){
+    return slider.noUiSlider.get();
+}
+
 function MakeComputationRequest(token) {
     var request = new XMLHttpRequest()
     request.open(
@@ -30,12 +36,9 @@ function MakeComputationRequest(token) {
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     request.setRequestHeader('Authorization', 'Bearer ' + token);
 
-    length_range = length_slider.noUiSlider.get()
-    weight_range = weight_slider.noUiSlider.get()
-    age_range = age_slider.noUiSlider.get()
-    console.log(length_range)
-    console.log(weight_range)
-    console.log(age_range)
+    length_range = getNoUiSliderRange(length_slider);
+    weight_range = getNoUiSliderRange(weight_slider);
+    age_range = getNoUiSliderRange(age_slider);
 
     var requirements = [
         {
@@ -43,13 +46,13 @@ function MakeComputationRequest(token) {
             "name": "length",
             "lowerLimit": {
                 "type": "numeric",
-                "value": length_range[0],
-                "attributeName": "length",
+                "value": String(length_range[0]),
+                "attributeName": "length"
             },
             "upperLimit": {
                 "type": "numeric",
-                "value": length_range[1],
-                "attributeName": "length",
+                "value": String(length_range[1]),
+                "attributeName": "length"
             }
         },
         {
@@ -57,48 +60,59 @@ function MakeComputationRequest(token) {
             "name": "weight",
             "lowerLimit": {
                 "type": "numeric",
-                "value": weight_range[0],
-                "attributeName": "weight",
+                "value": String(weight_range[0]),
+                "attributeName": "weight"
             },
             "upperLimit": {
                 "type": "numeric",
-                "value": weight_range[1],
-                "attributeName": "weight",
+                "value": String(weight_range[1]),
+                "attributeName": "weight"
             }
         },
-         {
+        {
             "range": true,
             "name": "age",
             "lowerLimit": {
                 "type": "numeric",
-                "value": age_range[0],
-                "attributeName": "age",
+                "value": String(age_range[0]),
+                "attributeName": "age"
             },
             "upperLimit": {
                 "type": "numeric",
-                "value": age_range[1],
-                "attributeName": "age",
+                "value": String(age_range[1]),
+                "attributeName": "age"
             }
         }
     ]
     console.log(requirements)
 
+    input_encoded =
+        btoa(
+            'json.' +
+            JSON.stringify({
+                'method': 'health_ri_demo',
+                'master': true,
+                'output_format': 'json',
+                'args': [
+                    [12, 13, 14], //the node IDs
+                    requirements  // range data
+                ]
+            })
+        )
+
     request.send(
         JSON.stringify(
             {
-                "image": "harbor2.vantage6.ai/algorithms/health-ri-2022",
+                "image": "harbor2.vantage6.ai/demo/health-ri-demo-arm",
                 "collaboration_id": 8,
-                "organizations": [{"id": 22}],
                 "name": 'health-ri-demo',
                 "description": 'health-ri-demo',
-                "input": {
-                    'method': 'health_ri_demo',
-                    'master': true,
-                    'args': [
-                        [12, 13, 14], //the node IDs
-                        requirements  // range data
-                    ]
-                }
+                "organizations": [
+                    {
+                        "id": 22,
+                        "input": input_encoded
+                    }
+                ],
             }
         )
     );
@@ -116,6 +130,7 @@ function MakeComputationRequest(token) {
 
 function PollResults(result_id, token) {
     var request = new XMLHttpRequest()
+
     request.open(
         "GET",
         "https://petronas.vantage6.ai/result/" + result_id.toString()
@@ -129,9 +144,12 @@ function PollResults(result_id, token) {
             // computation request has been send
             var finished = JSON.parse(request.response).finished_at
             if (finished != null) {
-                var results = JSON.parse((JSON.parse(request.response).result))
-                console.log(results)
-                LoadedData(results)
+                encoded_result = JSON.parse(request.response).result
+                decoded_result = atob(encoded_result)
+                console.log(decoded_result)
+                // var results = JSON.parse((JSON.parse(request.response).result))
+                var result = "10"
+                LoadedData(result)
             }
             else {
                 setTimeout(function () {
@@ -149,16 +167,21 @@ function EnteredData() {
 
 }
 
-function LoadedData(results) {
+function LoadedData(result) {
     $("#loader").animate({ "top": "-100%", "bottom": "100%" }, 500);
 
+    var final_result = document.getElementById("result-count");
 
+    final_result.innerHTML = result
+    final_result.innerHTML = 10
 
-    var age_result = document.getElementById("result-age");
-    var weight_result = document.getElementById("result-weight");
+    var length_table_cell = document.getElementById('td-length-cell')
+    var weight_table_cell = document.getElementById('td-weight-cell')
+    var age_table_cell = document.getElementById('td-age-cell')
 
-    age_result.innerHTML = Math.round(results.age * 10) / 10
-    weight_result.innerHTML = Math.round(results.weight * 10) / 10
+    length_table_cell.innerHTML = `${length_range[0]} - ${length_range[1]} cm`
+    weight_table_cell.innerHTML = `${weight_range[0]} - ${weight_range[1]} kg`
+    age_table_cell.innerHTML = `${age_range[0]} - ${age_range[1]} years`
 }
 
 function BackToStart() {
@@ -252,6 +275,6 @@ function setSlider(slider_name, min, max, start_range){
     });
     return slider;
 }
-var age_slider = setSlider('slider-age', 0, 120, [20, 80])
-var weight_slider = setSlider('slider-weight', 0, 300, [60, 100])
-var length_slider = setSlider('slider-length', 0, 300, [100, 200])
+var age_slider = setSlider('slider-age', 0, 120, [0, 119])
+var weight_slider = setSlider('slider-weight', 0, 300, [0, 280])
+var length_slider = setSlider('slider-length', 0, 300, [0, 280])

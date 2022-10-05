@@ -363,3 +363,9 @@ h1{
     margin-left: 9%;
     margin-bottom: 60px;
 }
+.toStartButton {
+    margin-top: 40px;
+}
+th, td {
+    width: 200px;
+}
