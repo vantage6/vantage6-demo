@@ -4,7 +4,7 @@ application:
   api_key: ${API_KEY}
 
   # URL of the vantage6 server
-  server_url: https://petronas.vantage6.ai
+  server_url: ${V6_SERVER_URL}
 
   # port the server listens to
   port: 443
@@ -29,9 +29,6 @@ application:
   # components.
   # OPTIONAL
   images:
-    node: harbor2.vantage6.ai/infrastructure/arm-node
-    vpn_client: harbor2.vantage6.ai/infrastructure/arm-vpn-client
-    network_config: harbor2.vantage6.ai/infrastructure/arm-vpn-configurator
 
   # path or endpoint to the local data source. The client can request a
   # certain database to be used if it is specified here. They are
