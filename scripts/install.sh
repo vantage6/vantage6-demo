@@ -6,7 +6,7 @@ apt-get upgrade -y
 
 echo "1a. Installing additional packages"
 apt-get install curl
-apt-get install python3.10-venv
+apt-get install python3.9-venv
 
 echo "2. Setting execution permissions to script"
 chmod +x ${HOME}/vantage6-demo/scripts/configure.sh
