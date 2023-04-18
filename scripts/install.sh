@@ -24,7 +24,7 @@ echo "4. Creating Python environment"
 python3 -m venv ${HOME}/venvs/vantage6
 
 echo "5. Install vantage6"
-${HOME}/venvs/vantage6/bin/pip install vantage6==3.3.2
+${HOME}/venvs/vantage6/bin/pip install wheel vantage6==3.3.2
 
 echo "6. Create config folder"
 mkdir -p ${HOME}/.config/vantage6/node
