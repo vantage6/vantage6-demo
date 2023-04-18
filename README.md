@@ -103,6 +103,6 @@ You need to make some manual changes to the Javascript file:
 
 ## Buidling Docker images
 ```
-docker buildx build --platform linux/arm/v7 -t harbor2.vantage6.ai/demo/ui . --push
+docker build -t harbor.carrier-mu.src.surf-hosted.nl/carrier/demo-ui . --push
 ```
 
